@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Фотоесеп</title>
+<style>
+:root{--bg:#EEF2EF;--ring:#0E6B44;color-scheme:light;box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101814;--ring:#3FBF84;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#101814;--ring:#3FBF84;color-scheme:dark}
+*,*::before,*::after{box-sizing:inherit}
+html,body{margin:0;background:var(--bg);overflow-x:hidden}
+.grid{max-width:1100px;margin:0 auto;padding:12px;display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr))}
+.ph{all:unset;display:block;cursor:zoom-in;border-radius:16px;overflow:hidden}
+.ph img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover}
+.ph:focus-visible{outline:3px solid var(--ring);outline-offset:3px}
+.lb{position:fixed;inset:0;background:rgba(0,0,0,.94);display:none;align-items:center;justify-content:center;padding:16px;z-index:20}
+.lb.open{display:flex}
+.lb img{max-width:100%;max-height:90vh;border-radius:10px}
+.x{position:absolute;top:calc(env(safe-area-inset-top,0px) + 12px);right:12px;width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,255,255,.9);color:#000;font-size:22px;line-height:44px;cursor:pointer}
+</style>
+</head>
+<body>
+<main class="grid">
+<button class="ph" aria-label="Фото 1"><img src="photos/1.jpg" alt="Фото 1"></button>
+<button class="ph" aria-label="Фото 2"><img src="photos/2.jpg" alt="Фото 2"></button>
+<button class="ph" aria-label="Фото 3"><img src="photos/3.jpg" alt="Фото 3"></button>
+<button class="ph" aria-label="Фото 4"><img src="photos/4.jpg" alt="Фото 4"></button>
+<button class="ph" aria-label="Фото 5"><img src="photos/5.jpg" alt="Фото 5"></button>
+</main>
+<div class="lb" id="lb" role="dialog" aria-modal="true"><button class="x" id="x" aria-label="Жабу">✕</button><img id="li" alt=""></div>
+<script>
+const lb=document.getElementById('lb'),li=document.getElementById('li');
+document.querySelectorAll('.ph').forEach(b=>b.addEventListener('click',()=>{const i=b.querySelector('img');li.src=i.src;li.alt=i.alt;lb.classList.add('open')}));
+const close=()=>{lb.classList.remove('open');li.removeAttribute('src')};
+document.getElementById('x').addEventListener('click',close);
+lb.addEventListener('click',e=>{if(e.target===lb)close()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+</script>
+</body>
+</html>
